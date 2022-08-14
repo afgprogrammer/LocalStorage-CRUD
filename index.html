@@ -9,6 +9,108 @@
         <link rel="stylesheet" href="public/style.css">
     </head>
     <body>
-        <h1 class="text-3xl text-blue-600">Hello world!</h1>
+        <section class="container m-auto">
+            <div class="h-24"></div>
+            <div class="w-2/3 m-auto">
+                <div class="card">
+                    <header>
+                        <h1>Register</h1>
+                    </header>
+                    <div class="mt-6">
+                        <form action="" id="register">
+                            <div class="grid grid-cols-2 gap-2">
+                                <input type="hidden" name="isEditing" id="isEditing" value="false">
+                                <div class="flex flex-col mb-3">
+                                    <label for="">Name</label>
+                                    <input class="input" type="text" placeholder="Name" id="name" name="name" value="">
+                                </div>
+                                <div class="flex flex-col mb-3">
+                                    <label for="">Email</label>
+                                    <input class="input" type="text" placeholder="Email" id="email" name="email">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div class="flex flex-col mb-3">
+                                    <label for="">Age</label>
+                                    <input class="input" type="number" min="10" max="100" placeholder="Age" id="age" name="age">
+                                </div>
+                                <div class="flex flex-col mb-3">
+                                    <label for="">Address</label>
+                                    <input class="input" type="text" placeholder="eg. Kabul, Afghanistan" id="address" name="address">
+                                </div>
+                            </div>
+                            <div class="flex flex-col mb-3">
+                                <label for="">Image</label>
+                                <input class="input" type="text" placeholder="Image URL" id="image" name="image">
+                            </div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div class="p-4 border border-gray-400 rounded-md cursor-pointer">
+                                    Male
+                                </div>
+                                <div class="p-4 border border-gray-400 rounded-md cursor-pointer selected">
+                                    Female
+                                </div>
+                            </div>
+
+                            <div class="h-8"></div>
+                            <div class="flex">
+                                <button class="btn flex-1" id="btn">Register</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="h-24"></div>
+            <div>
+                <div class="flex mb-3">
+                    <form action="" id="filter-form" class="w-full flex items-end">
+                        <div class="w-2/3 mr-3">
+                            <input class="input w-full" type="text" placeholder="eg. Ahmad, example@gmail.com, Kabul, Afghanistan" name="search" id="search">
+                        </div>
+                        <div class="w-2/3">
+                            <select class="input w-full" name="age" id="age">
+                                <option value="*" disabled selected>Please select an age range</option>
+                                <option value="1-15">1-15</option>
+                                <option value="15-25">15-25</option>
+                                <option value="25-45">25-45</option>
+                                <option value="45-85">45-85</option>
+                                <option value="-120">-120</option>
+                            </select>
+                        </div>
+                        <div class="ml-3">
+                            <button class="btn flex-1 w-40" id="btn">Filter</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="flex mb-3" id="badges">
+                    <!-- <div class="badge">
+                        <span class="mr-3">Text</span>
+                        <a href="#" class="">X</a>
+                    </div>
+                    <div class="badge">
+                        <span class="mr-3">Text</span>
+                        <a href="#" class="">X</a>
+                    </div> -->
+                </div>
+                <table class="border border-red-400 w-full table-auto" border="1" id="users-table">
+                    <thead class="bg-red-400">
+                        <tr class=" text-left">
+                            <th class="col p-3">User</th>
+                            <th class="col p-3">Email</th>
+                            <th class="col p-3">Age</th>
+                            <th class="col p-3">Address</th>
+                            <th class="col p-3">Gender</th>
+                            <th class="col p-3">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-rows">
+                        <tr></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="h-96"></div>
+        </section>
+
+        <script type="module" src="src/index.js"></script>
     </body>
 </html>

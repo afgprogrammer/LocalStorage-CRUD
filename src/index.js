@@ -63,8 +63,10 @@ import User from "./models/user.js";
 import * as formState from "./lib/form.js";
 import * as badge from "./lib/badge.js";
 import * as url from "./utils/url.js";
+import { handleFilter } from "./lib/filter.js";
+import { displayTable } from "./lib/table.js";
 
-const table = document.getElementById("users-rows");
+// const table = document.getElementById("users-rows");
 const form = document.getElementById("register");
 
 form.addEventListener("submit", (e) => {
@@ -107,35 +109,12 @@ const editForm = (email) => {
 
 window.editForm = editForm;
 
-// Create user list
-const users = getUsers();
-if (users != null) {
-  users.forEach((user) => {
-    let trElement = document.createElement("tr");
-    trElement.classList = "border border-red-500";
-    trElement.innerHTML = `
-            <td class="col p-3">${user.name}</td>
-            <td class="col p-3">${user.email}</td>
-            <td class="col p-3">${user.age}</td>
-            <td class="col p-3">${user.address}</td>
-            <td class="col p-3">${user.gender == 0 ? "Male" : "Female"}</td>
-            <td class="col p-3"><a href="#" title="" onClick="editForm('${
-              user.email
-            }')">Edit</a></td>
-        `;
-
-    table.appendChild(trElement);
-  });
-}
-
 // Search and Filter
 const filterForm = document.getElementById("filter-form");
 filterForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
   const form = new FormData(filterForm);
-  const search = form.get("search");
-  const age = form.get("age");
 
   const searchParams = {
     search: form.get("search"),
@@ -143,16 +122,6 @@ filterForm.addEventListener("submit", (e) => {
   };
 
   url.add(searchParams);
-  // if (search != null || search.length > 0) {
-  //     url.add(form.get("search"))
-  // }
-
-  // if (age != null) {
-  //     url.add('age', age)
-  // }
-
-  // badge.add('search', search)
-  // badge.add('age', age)
 
   filterForm.reset();
 });
@@ -166,14 +135,30 @@ window.removeBadge = removeBadge;
 
 window.onload = (event) => {
   const url = new URLSearchParams(window.location.search);
+  let search;
+  let age;
 
   if (url.has("search")) {
-    const search = url.get("search").split(",");
+    search = url.get("search").split(",");
 
     search.forEach((item) => {
       badge.add("search", item);
     });
   }
 
-  if (url.has("age")) badge.add("age", url.get("age"));
+  if (url.has("age")) {
+    age = url.get("age");
+    badge.add("age", age);
+  }
+  //   call the filter only if we have search or age in url
+
+  if ((search && search.length > 0) || age) {
+    console.log("filters exist");
+    const usersList = handleFilter(search, age);
+    displayTable(usersList);
+  } else {
+    console.log("filters doesnt exist");
+    // show all of the users
+    displayTable();
+  }
 };

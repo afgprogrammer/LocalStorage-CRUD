@@ -2,7 +2,7 @@ const add = (key, text) => {
     const url = new URLSearchParams(window.location.search)
 
     if (key === 'search') {
-        if (url.has(key)) {
+        if (url.has(key) && url.get(key).length > 0) {
             url.set(key, url.get(key) + `,${text}`)
         } else {
             url.set(key, text)

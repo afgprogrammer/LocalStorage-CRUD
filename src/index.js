@@ -11,6 +11,7 @@
 // filter: based on name, email, address
 // select box age: 0-15, 15-25, 25-35, ...
 // filter tag: text, remove icon
+
 /**
  * User edit form data should not reset after refreshing the page
  * User filter data should not reset or removed after page refresh
@@ -61,6 +62,7 @@ import * as url from './utils/url.js'
 
 const table = document.getElementById("users-rows")
 const form = document.getElementById("register")
+const filterForm = document.getElementById('filter-form')
 
 form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -102,28 +104,7 @@ const editForm = (email) => {
 
 window.editForm = editForm
 
-// Create user list
-const users = getUsers();
-if (users != null) {
-    users.forEach((user) => {
-        let trElement = document.createElement("tr")
-            trElement.classList = 'border border-red-500'
-        trElement.innerHTML = `
-            <td class="col p-3">${user.name}</td>
-            <td class="col p-3">${user.email}</td>
-            <td class="col p-3">${user.age}</td>
-            <td class="col p-3">${user.address}</td>
-            <td class="col p-3">${user.gender == 0 ? 'Male' : "Female"}</td>
-            <td class="col p-3"><a href="#" title="" onClick="editForm('${user.email}')">Edit</a></td>
-        `
-    
-        table.appendChild(trElement)
-    })
-}
-
-
 // Search and Filter
-const filterForm = document.getElementById('filter-form')
 filterForm.addEventListener("submit", (e) => {
     e.preventDefault()
 
@@ -165,4 +146,25 @@ window.onload = (event) => {
 
     if (url.has("age"))
         badge.add('age', url.get("age"))
+
+    buildUsersRow(getUsers(url))
+}
+
+const buildUsersRow = (users) => {
+    if (users != null) {
+        users.forEach((user) => {
+            let trElement = document.createElement("tr")
+                trElement.classList = 'border border-red-500'
+            trElement.innerHTML = `
+                <td class="col p-3">${user.name}</td>
+                <td class="col p-3">${user.email}</td>
+                <td class="col p-3">${user.age}</td>
+                <td class="col p-3">${user.address}</td>
+                <td class="col p-3">${user.gender == 0 ? 'Male' : "Female"}</td>
+                <td class="col p-3"><a href="#" title="" onClick="editForm('${user.email}')">Edit</a></td>
+            `
+        
+            table.appendChild(trElement)
+        })
+    }
 }

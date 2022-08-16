@@ -13,7 +13,6 @@ const add = (key, text) => {
         `
 
     badges.appendChild(div)
-    console.log(badges.children)
 }
 
 const remove = (text) => {

@@ -1,3 +1,4 @@
+import { displayNewUser } from "../lib/table.js";
 import User from "../models/user.js";
 
 const saveUser = (user) => {
@@ -8,6 +9,7 @@ const saveUser = (user) => {
   users.push(user);
 
   localStorage.setItem("users", JSON.stringify(users));
+  displayNewUser(user);
 };
 
 const editUser = (email, user) => {

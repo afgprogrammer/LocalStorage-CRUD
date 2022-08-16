@@ -39,4 +39,21 @@ const displayTable = (usersList) => {
   }
 };
 
-export { displayTable };
+const displayNewUser = (user) => {
+  let trElement = document.createElement("tr");
+  trElement.classList = "border border-red-500";
+  trElement.innerHTML = `
+            <td class="col p-3">${user.name}</td>
+            <td class="col p-3">${user.email}</td>
+            <td class="col p-3">${user.age}</td>
+            <td class="col p-3">${user.address}</td>
+            <td class="col p-3">${user.gender == 0 ? "Male" : "Female"}</td>
+            <td class="col p-3"><a href="#" title="" onClick="editForm('${
+              user.email
+            }')">Edit</a></td>
+        `;
+
+  table.appendChild(trElement);
+};
+
+export { displayTable, displayNewUser };
